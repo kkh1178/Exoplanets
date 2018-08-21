@@ -1,4 +1,4 @@
-Row ID,Host Name,Planet Name,Number of Planets in System,Orbital Period (days),Semi-Major Axis,Planet Radius (jupiter Radii),Distance to Star (pc),Effective temperature (K),Stellar Mass (solar Mass),st_sp,st_spstr
+Row_ID,Host_Name,Planet_Name,Number_of_Planets_in_System,Orbital_Period(days),Semi-Major_Axis(AU),Planet_Radius(jupiter_Radii),Distance_to_Star(pc),Effective_temperature(K),Stellar_Mass(solar_Mass),st_sp,st_spstr
 1,11 Com,11 Com b,1,326.03,1.29,,110.62,4742,2.7,5,K0 III
 2,11 UMi,11 UMi b,1,516.21997,1.53,,119.47,4213,2.78,5.4,K4 III
 3,14 And,14 And b,1,185.84,0.83,,76.39,4813,2.2,4.8,G8 III
