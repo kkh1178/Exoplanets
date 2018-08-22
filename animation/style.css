@@ -1,0 +1,13 @@
+.orbit {
+    stroke : rgb(145, 134, 134);
+    fill : none;
+    stroke-opacity: .1;
+}
+.planet {
+    stroke : #28089c;
+    fill : rgb(31, 196, 247);
+}
+.sun {
+    stroke : #000000;
+    fill : #000000;
+}
