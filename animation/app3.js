@@ -1,14 +1,27 @@
 var w = 1200, h = 600;
 var t0 = Date.now();
-// var stopTooltip = false;	
-// 
+
+
 // defining the svg
 var svg = d3.select("#planetarium").insert("svg")
     .attr("width", w).attr("height", h);
 
-// svg.append("circle").attr("r", 20).attr("cx", w / 2)
-//     .attr("cy", h / 2).attr("class", "sun")
-svg.html(`<defs>
+
+// // Resizing the winow
+// d3.select(window).on("resize", makeResponsive);
+
+// makeResponsive();
+
+// function makeResponsive() {
+
+//     var svgArea = d3.select("body").select("svg");
+
+//     if (!svgArea.empty()) {
+//         svgArea.remove();
+//     }
+
+    // Adding defs to the code for the gradients on the planet
+    svg.html(`<defs>
 <radialGradient id="stellarB"  cx="20%" cy="50%" r="60%" fx="50%" fy="50%">
   <stop offset="0%" stop-color="#c1440e"/>
   <stop offset="100%" stop-color="#451804"/>
@@ -40,149 +53,155 @@ svg.html(`<defs>
 </radialGradient>
 </defs>`)
 
-//  Adding an image of the sun to act as our star
-svg.append("svg:image")
-    .attr("x", -20 + w / 2)
-    .attr("y", -20 + h / 2)
-    .attr("class", "sun")
-    .attr("xlink:href", "sun.png")
-    .attr("width", 40)
-    .attr("height", 40)
-    .attr("text-anchor", "middle");
+    //  Adding an image of the sun to act as our central star
+    svg.append("svg:image")
+        .attr("x", -20 + w / 2)
+        .attr("y", -20 + h / 2)
+        .attr("class", "sun")
+        .attr("xlink:href", "sun.png")
+        .attr("width", 40)
+        .attr("height", 40)
+        .attr("text-anchor", "middle");
 
 
-// 
-var container = svg.append("g")
-    .attr("transform", "translate(" + w / 2 + "," + h / 2 + ")");
+    // Container to append the svg to.
+    var container = svg.append("g")
+        .attr("transform", "translate(" + w / 2 + "," + h / 2 + ")");
 
-// var toolTip = d3.select("body").append("div")
-//     .attr("class", "tooltip");
-const toolTip = d3.select("#tooltip")
+    // Defining the initial tooltip variable outside of our function
+    const toolTip = d3.select("#tooltip")
 
-d3.csv("cleaned_planets.csv").then(function (data) {
+    // function to read in the data and the initialize building the planets and orbits.
+    d3.csv("cleaned_planets.csv").then(function (data) {
 
-    planets = data.filter(d => d.Planet_Radius_Earth_Radii && d.Semi_Major_Axis_proportional && d.Orbital_Velocity_proportional);
-    planets.forEach((d) => {
+        // checking to see if the data has all of the necessary data pieces
+        planets = data.filter(d => d.Planet_Radius_Earth_Radii && d.Semi_Major_Axis_proportional && d.Orbital_Velocity_proportional);
 
-        // planetary radius. Also r.
-        d.Planet_Radius_Earth_Radii = +d.Planet_Radius_Earth_Radii;
+        // turning all of the data from strings to numbers 
+        planets.forEach((d) => {
 
-        // applying a logrithmic scale to get the orbits to show up
-        d.Semi_Major_Axis_proportional = Math.abs((35 * (Math.log(+d.Semi_Major_Axis_proportional))).toFixed(5));
-        // d.Semi_Major_Axis_proportional = 100 * (+d.Semi_Major_Axis_proportional)
+            // planetary radius
+            d.Planet_Radius_Earth_Radii = +d.Planet_Radius_Earth_Radii;
 
-        // I'm using a column from the table called  Radial Velocity [km/s]
-
-        d.Orbital_Velocity_proportional = +d.Orbital_Velocity_proportional / 5;
-
-        d.Effective_temperature_K = +d.Effective_temperature_K;
-    });
+            // applying a logrithmic scale to get the orbits radius to show up and the abs value
+            // Some of the data had negatives in it; Using as the distance from the star
+            // Modified it to make the 
+            d.Semi_Major_Axis_proportional = Math.abs((35 * (Math.log(+d.Semi_Major_Axis_proportional))).toFixed(5));
 
 
-    // Making the planets based on r and R
-    container.selectAll("g.planet")
-        .data(planets)
-        .enter()
-        .append("g")
-        .attr("class", "planet")
-        .each(function (d, i) {
+            // Speed of the planet around its sun.
+            d.Orbital_Velocity_proportional = +d.Orbital_Velocity_proportional / 5;
 
-            var planetClass = d.Effective_temperature_K >= 10000 ? "stellarB" :
-                d.Effective_temperature_K >= 7500 ? "stellarA" :
-                    d.Effective_temperature_K >= 6000 ? "stellarF" :
-                        d.Effective_temperature_K >= 5000 ? "stellarG" :
-                            d.Effective_temperature_K >= 3500 ? "stellarK" : "stellarM";
-            // console.log(d);
-
-            // making the orbit
-            d3.select(this).append("circle").attr("class", "orbit").attr("r", d.Semi_Major_Axis_proportional);
-            // console.log(d)
-            // making the planet
-            var exoplanet = d3.select(this)
-                .append("circle")
-                .attr("r", d.Planet_Radius_Earth_Radii)
-                .attr("cx", d.Semi_Major_Axis_proportional)
-                .attr("cy", 0)
-                .attr("class", planetClass)
-
-                .attr("id", "planet-body");
+            //  temperature of the star that the planet is orbiting
+            d.Effective_temperature_K = +d.Effective_temperature_K;
         });
 
-    var phi0 = 0;
-    let vel, axis = 0;
-    // Using the timer function to rotate the planets
-    d3.timer(function (delta) {
-        const x = (w / 2) + axis * Math.cos(toRad(delta * vel / 200))
-        const y = (h / 2) + axis * Math.sin(toRad(delta * vel / 200))
-        svg.selectAll(".planet")
-            .attr("transform", function (datum) {
-                return "rotate(" + phi0 + delta * datum.Orbital_Velocity_proportional / 200 + ")"
-            }).selectAll('#planet-body')
-            .on('mouseover', function (datum) {
 
-                vel = datum.Orbital_Velocity_proportional
-                axis = datum.Semi_Major_Axis_proportional
-                toolTip.style("visibility", "visible");
-                toolTip.select('.tooltip-container').html(`<div>Planet Name: <strong>${datum.Planet_Name}</strong></div>
-                <div>Radius: <strong>${datum.Planet_Radius_Earth_Radii}</strong></div>
+        // Making the planets based on rplanet adius and distance from star
+        container.selectAll("g.planet")
+            .data(planets)
+            .enter()
+            .append("g")
+            .attr("class", "planet")
+            .each(function (d, i) {
+
+                // Function that applies the scale of the stellar temp to the planets
+                var planetClass = d.Effective_temperature_K >= 10000 ? "stellarB" :
+                    d.Effective_temperature_K >= 7500 ? "stellarA" :
+                        d.Effective_temperature_K >= 6000 ? "stellarF" :
+                            d.Effective_temperature_K >= 5000 ? "stellarG" :
+                                d.Effective_temperature_K >= 3500 ? "stellarK" : "stellarM";
+
+                // making the orbit
+                d3.select(this).append("circle").attr("class", "orbit").attr("r", d.Semi_Major_Axis_proportional);
+
+                // making the planet
+                var exoplanet = d3.select(this)
+                    .append("circle")
+                    .attr("r", d.Planet_Radius_Earth_Radii)
+                    .attr("cx", d.Semi_Major_Axis_proportional)
+                    .attr("cy", 0)
+                    .attr("class", planetClass)
+                    .attr("id", "planet-body");
+            });
+        // phi0 is the starting angle
+        var phi0 = 0;
+
+        // starting point of the velosity and the axis
+        let vel, axis = 0;
+
+        // Using the timer function to rotate the planets
+        d3.timer(function (delta) {
+            // these are the x, y variables that will cause the 
+            const x = (w / 2) + axis * Math.cos(toRad(delta * vel / 200))
+            const y = (h / 2) + axis * Math.sin(toRad(delta * vel / 200))
+
+            // The hover function for the planets tooltips.
+            svg.selectAll(".planet")
+                .attr("transform", function (datum) {
+                    return "rotate(" + phi0 + delta * datum.Orbital_Velocity_proportional / 200 + ")"
+                }).selectAll('#planet-body')
+                .on('mouseover', function (datum) {
+
+                    vel = datum.Orbital_Velocity_proportional
+                    axis = datum.Semi_Major_Axis_proportional
+                    // The text that shows up in the tooltips. Tooltip will stay until told otherwise
+                    toolTip.style("visibility", "visible");
+                    toolTip.select('.tooltip-container').html(`<div>Planet Name: <strong>${datum.Planet_Name}</strong></div>
+                <div>Radius (Earth Radii): <strong>${datum.Planet_Radius_Earth_Radii}</strong></div>
                 <div>Rotation (Days): <strong>${datum.Orbital_Period_days}</strong></div>
                 <div>Stellar Temp (k): <strong>${datum.Effective_temperature_K}</strong></div>
                 `)
-                // toolTip.select(".orbit").attr("stroke-opacity", 1)
-                // toolTip.select(".earth_radius").html(`Planet Radii: <strong>${datum.Planet_Radius_Earth_Radii}</strong>`)
-            })
-            .on("mouseout", function (datum) {
-                // toolTip.style("visibility", "hidden");
-                // toolTip.select("#planetarium")
-            })
-
-        toolTip
-            .style('left', `${x - 125}px`)
-            .style('top', `${y - 25}px`)
+                    
+                })
+                .on("mouseout", function (datum) {
+                    
+                })
+                // rotating the tooltip with the planet
+            toolTip
+                .style('left', `${x - 125}px`)
+                .style('top', `${y - 25}px`)
+        });
     });
-});
-
-svg.on("click", function () {
-    toolTip.style("visibility", "hidden");
-})
-
-
-function toRad(deg) {
-    return deg * Math.PI / 180
-}
-
-var stellarClass = [
-    { "sClassName": "B [10,000 - 30,000 K]", "planetClass": "stellarB", "color": "#10E3F4", "y": 20 },
-    { "sClassName": "A [7,500 - 10,000 K]", "planetClass": "stellarA", "color": "#CEF8FC", "y": 40 },
-    { "sClassName": "F [6,000 - 7,500 K]", "planetClass": "stellarF", "color": "#F9FCA9", "y": 60 },
-    { "sClassName": "G [5,000 - 6,000 K]", "planetClass": "stellarG", "color": "#EDF410", "y": 80 },
-    { "sClassName": "K [3,500 - 5,000 K]", "planetClass": "stellarK", "color": "#F4AB10", "y": 100 },
-    { "sClassName": "M [0 - 3,500 K]", "planetClass": "stellarM", "color": "#F4AB10", "y": 120 }
-
-];
-
-
-container.append("g").selectAll("text").data(stellarClass).enter().append("text")
-    // .text("Class of Star (Temp): ")
-    .text(d => d.sClassName)
-    .attr("class", d => d.planetClass)
-    .attr("font-size", "20px")
-    // .position("right")
-    .attr("x", 350)
-    .attr("y", d => 20 + d.y)
-    .attr("font-family", "Oswald")
-    // .attr("background-color", white)
-    // .attr('color', gray)
-    // .attr("fill", "#9CF1F4")
-    // .text("Orbiting Star Heat (K)")
-    // .attr("text-align", center)
-    .on("mouseover", function () {
-        var selectedClass = d3.select(this).attr("class");
-
-        d3.selectAll("circle").style("opacity", 0.2).classed("selected-planets", false);
-        d3.selectAll("." + selectedClass).style("opacity", 1).classed("selected-planets", true);
+// click function that allows you to remove the tooltip when you click elsewhere
+    svg.on("click", function () {
+        toolTip.style("visibility", "hidden");
     })
-    .on("mouseout", function () {
-        d3.select(this).classed("selected-planets", false);
-        d3.selectAll("circle").style("opacity", 1).classed("selected-planets", false);
-    });
+
+// converting degrees to radians for the cos/sin function.
+    function toRad(deg) {
+        return deg * Math.PI / 180
+    }
+
+// Created a var (array of objects) that has the Stellar classes and a y values for the legen placement
+    var stellarClass = [
+        { "sClassName": "B [10,000 - 30,000 K]", "planetClass": "stellarB", "color": "#10E3F4", "y": 20 },
+        { "sClassName": "A [7,500 - 10,000 K]", "planetClass": "stellarA", "color": "#CEF8FC", "y": 40 },
+        { "sClassName": "F [6,000 - 7,500 K]", "planetClass": "stellarF", "color": "#F9FCA9", "y": 60 },
+        { "sClassName": "G [5,000 - 6,000 K]", "planetClass": "stellarG", "color": "#EDF410", "y": 80 },
+        { "sClassName": "K [3,500 - 5,000 K]", "planetClass": "stellarK", "color": "#F4AB10", "y": 100 },
+        { "sClassName": "M [0 - 3,500 K]", "planetClass": "stellarM", "color": "#F4AB10", "y": 120 }
+
+    ];
+
+// Appending a legend
+    container.append("g").selectAll("text").data(stellarClass).enter().append("text")
+        .text(d => d.sClassName)
+        .attr("class", d => d.planetClass)
+        .attr("font-size", "20px")
+        // .position("right")
+        .attr("x", 350)
+        .attr("y", d => 20 + d.y)
+        .attr("font-family", "Oswald")
+        .on("mouseover", function () {
+            var selectedClass = d3.select(this).attr("class");
+// This allows only the planets we select to be seen when hovering over the legend values
+            d3.selectAll("circle").style("opacity", 0.2).classed("selected-planets", false);
+            d3.selectAll("." + selectedClass).style("opacity", 1).classed("selected-planets", true);
+        })
+// This presents all of the planets once the cursor is no longer hovering.
+        .on("mouseout", function () {
+            d3.select(this).classed("selected-planets", false);
+            d3.selectAll("circle").style("opacity", 1).classed("selected-planets", false);
+        });
+// }
