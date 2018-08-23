@@ -9,8 +9,9 @@ body {
     stroke-opacity: .1;
 }
 .planet {
-    stroke : #28089c;
+    stroke : #08929c;
     fill : rgb(31, 196, 247);
+    /* fill: neon2;  */
 }
 .sun {
     stroke : #000000;
@@ -29,7 +30,24 @@ body {
     position: absolute;
     /* fill: orchid; */
 /* } */ 
-.tooltip-Container {
+.tooltip-container {
+    position: absolute;
+    bottom: 0;
+    width: 230px;
+    /* left: -115px; 230/2 */
+    font-size: 12px;
+    line-height: 16px;
+    padding: 10px;
+    border-radius: 3px;
+    background: rgba(255,255,255,0.9);
+    color: #000;
+    box-shadow: 0 1px 5px rgba(0,0,0,0.4);
+    -moz-box-shadow: 0 1px 5px rgba(0,0,0,0.4);  
+    border:1px solid rgba(200,200,200,0.85);
+    text-align:center;
+    cursor: default;
+}
+.radius_planet{
     position: absolute;
     bottom: 0;
     width: 230px;
@@ -52,7 +70,7 @@ body {
     z-index: 1000;
     background: white;
     position: absolute;
-    color: aqua;
+    color: rgb(189, 21, 204);
     /* opacity: 0; */
 }
   
@@ -65,17 +83,17 @@ body {
     /* background: url(../img/tail_white.png) 50% 0%; */
 }
 
-body {
+/* body {
     background-color: #222222;
     background: repeating-linear-gradient(45deg, #2b2b2b 0%, #2b2b2b 10%, #222222 0%, #222222 50%) 0 / 15px 15px;
-}
+} */
   
 #container {
     width: 500px;
     margin: auto;
 }
   
-  /*Neon*/
+  /* Neon*/
 p {
     text-align: center;
     font-size: 7em;

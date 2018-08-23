@@ -91,7 +91,13 @@ d3.csv("cleaned_planets.csv").then(function (data) {
 
                 vel = datum.Orbital_Velocity_proportional
                 axis = datum.Semi_Major_Axis_proportional
-                toolTip.select('.tooltip-container').html(`Planet Name:<strong>${datum.Planet_Name}</strong>`)
+                toolTip.style("visibility", "visible");
+                toolTip.select('.tooltip-container').html(`Planet Name: <strong>${datum.Planet_Name}</strong>`)
+                // toolTip.select(".radius_planet").html(`Planet Radii: <strong>${datum.Planet_Radius_Earth_Radii}</strong>`)
+            })
+            .on("mouseout", function(datum){
+                // toolTip.style("visibility", "hidden");
+                // toolTip.select("#planetarium")
             })
 
         toolTip
@@ -99,6 +105,10 @@ d3.csv("cleaned_planets.csv").then(function (data) {
             .style('top', `${y - 25}px`)
     });
 });
+
+svg.on("click", function() {
+    toolTip.style("visibility", "hidden");
+})
 
 
 function toRad(deg) {
