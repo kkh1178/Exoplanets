@@ -33,6 +33,11 @@ svg.html(`<defs>
   <stop offset="0%" stop-color="#6b93d6"/>
   <stop offset="100%" stop-color="#4f4cb0"/>
 </radialGradient>
+
+<radialGradient id="stellarM"  cx="20%" cy="50%" r="60%" fx="50%" fy="50%">
+  <stop offset="0%" stop-color="#7e8173"/>
+  <stop offset="100%" stop-color="#361d1d"/>
+</radialGradient>
 </defs>`)
 
 //  Adding an image of the sun to act as our star
@@ -118,9 +123,13 @@ d3.csv("cleaned_planets.csv").then(function (data) {
                 vel = datum.Orbital_Velocity_proportional
                 axis = datum.Semi_Major_Axis_proportional
                 toolTip.style("visibility", "visible");
-                toolTip.select('.tooltip-container').html(`Planet Name: <strong>${datum.Planet_Name}</strong>`)
+                toolTip.select('.tooltip-container').html(`<div>Planet Name: <strong>${datum.Planet_Name}</strong></div>
+                <div>Radius: <strong>${datum.Planet_Radius_Earth_Radii}</strong></div>
+                <div>Rotation (Days): <strong>${datum.Orbital_Period_days}</strong></div>
+                <div>Stellar Temp (k): <strong>${datum.Effective_temperature_K}</strong></div>
+                `)
                 // toolTip.select(".orbit").attr("stroke-opacity", 1)
-                // toolTip.select(".radius_planet").html(`Planet Radii: <strong>${datum.Planet_Radius_Earth_Radii}</strong>`)
+                // toolTip.select(".earth_radius").html(`Planet Radii: <strong>${datum.Planet_Radius_Earth_Radii}</strong>`)
             })
             .on("mouseout", function (datum) {
                 // toolTip.style("visibility", "hidden");
@@ -147,8 +156,8 @@ var stellarClass = [
     { "sClassName": "A [7,500 - 10,000 K]", "planetClass": "stellarA", "color": "#CEF8FC", "y": 40 },
     { "sClassName": "F [6,000 - 7,500 K]", "planetClass": "stellarF", "color": "#F9FCA9", "y": 60 },
     { "sClassName": "G [5,000 - 6,000 K]", "planetClass": "stellarG", "color": "#EDF410", "y": 80 },
-    { "sClassName": "K [3,500 - 5,000 K]", "planetClass": "stellarK", "color": "#F4AB10", "y": 100 }
-    // { "sClassName": "M [0 - 3,500 K]", "planetClass": "stellarM", "color": "#F4AB10", "y": 120 }
+    { "sClassName": "K [3,500 - 5,000 K]", "planetClass": "stellarK", "color": "#F4AB10", "y": 100 },
+    { "sClassName": "M [0 - 3,500 K]", "planetClass": "stellarM", "color": "#F4AB10", "y": 120 }
 
 ];
 
@@ -162,6 +171,7 @@ container.append("g").selectAll("text").data(stellarClass).enter().append("text"
     .attr("x", 350)
     .attr("y", d => 20 + d.y)
     .attr("font-family", "Oswald")
+    // .attr("background-color", white)
     // .attr('color', gray)
     // .attr("fill", "#9CF1F4")
     // .text("Orbiting Star Heat (K)")
