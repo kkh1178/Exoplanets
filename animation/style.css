@@ -10,8 +10,9 @@ body {
 }
 .planet {
     stroke : #08929c;
-    fill : rgb(31, 196, 247);
-    /* fill: neon2;  */
+    /* fill : rgb(31, 196, 247); */
+    /* fill: radial-gradient(#5cabff, rgb(206, 135, 30)); */
+    fill: url(#exampleGradient); 
 }
 .sun {
     stroke : #000000;
@@ -20,7 +21,16 @@ body {
 
 .selected-planets {
   fill: purple;
+  text-align: center;
 }
+
+.stellarB:hover {
+  font-size: 20px;
+  font-family: 'Oswald';
+  color: #fff;
+  text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 20px #ff0080, 0 0 30px #ff0080, 0 0 40px #ff0080, 0 0 55px #ff0080, 0 0 75px #ff0080;
+  text-align: center;
+  }
 /* .planet-body {
     fill: orangered;
 } */
