@@ -10,28 +10,28 @@ var svg = d3.select("#planetarium").insert("svg")
 //     .attr("cy", h / 2).attr("class", "sun")
 svg.html(`<defs>
 <radialGradient id="stellarB"  cx="20%" cy="50%" r="60%" fx="50%" fy="50%">
-  <stop offset="0%" stop-color="gold"/>
-  <stop offset="100%" stop-color="#490754"/>
+  <stop offset="0%" stop-color="#c1440e"/>
+  <stop offset="100%" stop-color="#451804"/>
 </radialGradient>
 
 <radialGradient id="stellarA"  cx="20%" cy="50%" r="60%" fx="50%" fy="50%">
-  <stop offset="0%" stop-color="gold"/>
-  <stop offset="100%" stop-color="#710220"/>
+  <stop offset="0%" stop-color="#e77d11"/>
+  <stop offset="100%" stop-color="#c1440e"/>
 </radialGradient>
 
 <radialGradient id="stellarF"  cx="20%" cy="50%" r="60%" fx="50%" fy="50%">
-  <stop offset="0%" stop-color="gold"/>
-  <stop offset="100%" stop-color="#9a4905"/>
+  <stop offset="0%" stop-color="#d7c797"/>
+  <stop offset="100%" stop-color="#845422"/>
 </radialGradient>
 
 <radialGradient id="stellarG"  cx="20%" cy="50%" r="60%" fx="50%" fy="50%">
-  <stop offset="0%" stop-color="gold"/>
-  <stop offset="100%" stop-color="#00473c"/>
+  <stop offset="0%" stop-color="#9fc164"/>
+  <stop offset="100%" stop-color="#6b93d6"/>
 </radialGradient>
 
 <radialGradient id="stellarK"  cx="20%" cy="50%" r="60%" fx="50%" fy="50%">
-  <stop offset="0%" stop-color="gold"/>
-  <stop offset="100%" stop-color="#000068"/>
+  <stop offset="0%" stop-color="#6b93d6"/>
+  <stop offset="100%" stop-color="#4f4cb0"/>
 </radialGradient>
 </defs>`)
 
@@ -162,7 +162,8 @@ container.append("g").selectAll("text").data(stellarClass).enter().append("text"
     .attr("x", 350)
     .attr("y", d => 20 + d.y)
     .attr("font-family", "Oswald")
-    .attr("fill", "#9CF1F4")
+    // .attr('color', gray)
+    // .attr("fill", "#9CF1F4")
     // .text("Orbiting Star Heat (K)")
     // .attr("text-align", center)
     .on("mouseover", function () {
