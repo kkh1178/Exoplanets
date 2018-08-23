@@ -9,11 +9,31 @@ body {
     stroke-opacity: .1;
 }
 .planet {
-    stroke : #08929c;
+    /* stroke : #070707; */
     /* fill : rgb(31, 196, 247); */
     /* fill: radial-gradient(#5cabff, rgb(206, 135, 30)); */
-    fill: url(#exampleGradient); 
+    /* fill: url(#exampleGradient);  */
 }
+
+.stellarA {
+  fill: url(#stellarA);
+}
+.stellarB {
+  fill: url(#stellarB);
+}
+.stellarK {
+  fill: url(#stellarK);
+}
+.stellarG {
+  fill: url(#stellarG);
+}
+.stellarF {
+  fill: url(#stellarF);
+}
+
+
+
+
 .sun {
     stroke : #000000;
     fill : #000000;
@@ -28,9 +48,39 @@ body {
   font-size: 20px;
   font-family: 'Oswald';
   color: #fff;
-  text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 20px #ff0080, 0 0 30px #ff0080, 0 0 40px #ff0080, 0 0 55px #ff0080, 0 0 75px #ff0080;
+  text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 20px #ff00de, 0 0 30px #ff00de, 0 0 40px #ff00de, 0 0 55px #ff00de, 0 0 75px #ff00de;
   text-align: center;
   }
+
+.stellarA:hover {
+    font-size: 20px;
+    font-family: 'Oswald';
+    color: #fff;
+    text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 20px #ff00de, 0 0 30px #ff00de, 0 0 40px #ff00de, 0 0 55px #ff00de, 0 0 75px #ff00de;
+    text-align: center;
+}
+.stellarF:hover {
+  font-size: 20px;
+  font-family: 'Oswald';
+  color: #fff;
+  text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 20px #ff00de, 0 0 30px #ff00de, 0 0 40px #ff00de, 0 0 55px #ff00de, 0 0 75px #ff00de;
+  text-align: center;
+}
+
+.stellarG:hover {
+    font-size: 20px;
+    font-family: 'Oswald';
+    color: #fff;
+    text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 20px #ff00de, 0 0 30px #ff00de, 0 0 40px #ff00de, 0 0 55px #ff00de, 0 0 75px #ff00de;
+    text-align: center;
+}
+.stellarK:hover {
+      font-size: 20px;
+      font-family: 'Oswald';
+      color: #fff;
+      text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 20px #ff00de, 0 0 30px #ff00de, 0 0 40px #ff00de, 0 0 55px #ff00de, 0 0 75px #ff00de;
+      text-align: center;
+}
 /* .planet-body {
     fill: orangered;
 } */

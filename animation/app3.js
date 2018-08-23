@@ -9,37 +9,29 @@ var svg = d3.select("#planetarium").insert("svg")
 // svg.append("circle").attr("r", 20).attr("cx", w / 2)
 //     .attr("cy", h / 2).attr("class", "sun")
 svg.html(`<defs>
-<radialGradient id="exampleGradient"  cx="20%" cy="50%" r="60%" fx="50%" fy="50%">
-  <stop offset="0%" stop-color="silver"/>
-  <stop offset="100%" stop-color="blue"/>
+<radialGradient id="stellarB"  cx="20%" cy="50%" r="60%" fx="50%" fy="50%">
+  <stop offset="0%" stop-color="gold"/>
+  <stop offset="100%" stop-color="#490754"/>
 </radialGradient>
-</defs>`)
 
-svg.html(`<defs>
-<radialGradient id="exampleGradient"  cx="20%" cy="50%" r="60%" fx="50%" fy="50%">
-  <stop offset="0%" stop-color="silver"/>
-  <stop offset="100%" stop-color="blue"/>
+<radialGradient id="stellarA"  cx="20%" cy="50%" r="60%" fx="50%" fy="50%">
+  <stop offset="0%" stop-color="gold"/>
+  <stop offset="100%" stop-color="#710220"/>
 </radialGradient>
-</defs>`)
 
-svg.html(`<defs>
-<radialGradient id="exampleGradient"  cx="20%" cy="50%" r="60%" fx="50%" fy="50%">
-  <stop offset="0%" stop-color="silver"/>
-  <stop offset="100%" stop-color="blue"/>
+<radialGradient id="stellarF"  cx="20%" cy="50%" r="60%" fx="50%" fy="50%">
+  <stop offset="0%" stop-color="gold"/>
+  <stop offset="100%" stop-color="#9a4905"/>
 </radialGradient>
-</defs>`)
 
-svg.html(`<defs>
-<radialGradient id="exampleGradient"  cx="20%" cy="50%" r="60%" fx="50%" fy="50%">
-  <stop offset="0%" stop-color="silver"/>
-  <stop offset="100%" stop-color="blue"/>
+<radialGradient id="stellarG"  cx="20%" cy="50%" r="60%" fx="50%" fy="50%">
+  <stop offset="0%" stop-color="gold"/>
+  <stop offset="100%" stop-color="#00473c"/>
 </radialGradient>
-</defs>`)
 
-svg.html(`<defs>
-<radialGradient id="exampleGradient"  cx="20%" cy="50%" r="60%" fx="50%" fy="50%">
-  <stop offset="0%" stop-color="silver"/>
-  <stop offset="100%" stop-color="blue"/>
+<radialGradient id="stellarK"  cx="20%" cy="50%" r="60%" fx="50%" fy="50%">
+  <stop offset="0%" stop-color="gold"/>
+  <stop offset="100%" stop-color="#000068"/>
 </radialGradient>
 </defs>`)
 
@@ -106,7 +98,6 @@ d3.csv("cleaned_planets.csv").then(function (data) {
                 .attr("r", d.Planet_Radius_Earth_Radii)
                 .attr("cx", d.Semi_Major_Axis_proportional)
                 .attr("cy", 0)
-
                 .attr("class", planetClass)
 
                 .attr("id", "planet-body");
@@ -156,8 +147,8 @@ var stellarClass = [
     { "sClassName": "A [7,500 - 10,000 K]", "planetClass": "stellarA", "color": "#CEF8FC", "y": 40 },
     { "sClassName": "F [6,000 - 7,500 K]", "planetClass": "stellarF", "color": "#F9FCA9", "y": 60 },
     { "sClassName": "G [5,000 - 6,000 K]", "planetClass": "stellarG", "color": "#EDF410", "y": 80 },
-    { "sClassName": "K [3,500 - 5,000 K]", "planetClass": "stellarK", "color": "#F4AB10", "y": 100 },
-    { "sClassName": "M [0 - 3,500 K]", "planetClass": "stellarM", "color": "#F4AB10", "y": 120 }
+    { "sClassName": "K [3,500 - 5,000 K]", "planetClass": "stellarK", "color": "#F4AB10", "y": 100 }
+    // { "sClassName": "M [0 - 3,500 K]", "planetClass": "stellarM", "color": "#F4AB10", "y": 120 }
 
 ];
 
