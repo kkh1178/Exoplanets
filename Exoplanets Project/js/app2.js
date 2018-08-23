@@ -1,5 +1,17 @@
+d3.select(window).on("resize", makeResponsive);
+
+makeResponsive();
+
+function makeResponsive() {
+
+    var svgArea = d3.select("body").select("svg");
+
+    if (!svgArea.empty()) {
+        svgArea.remove();
+    }
+
 // Set up svg
-var width = window.innerWidth;
+var width = window.innerWidth*.8;
 var height = window.innerHeight;
 
 var svg = d3.select("#planet-bubble")
@@ -20,12 +32,7 @@ console.log(nodes);
         // d3.csv("exoplanets.csv", function(data) {
         //     data.radius = +data.radius;
 
-        // })
-    // Step 2: Call forceSimulation to pass the array of objects
-    // radius element will be from the csv file
-    // Step 3: Add any needed funtions (forceCenter, forceCollide, etc.)
-    // Step 4: Set up Callback function to update the element position after each tick
-    var simulation = d3.forceSimulation(nodes)
+ var simulation = d3.forceSimulation(nodes)
         .force('charge', d3.forceManyBody().strength(50))
         .force('center', d3.forceCenter(width / 2, height / 2))
         .force('collision', d3.forceCollide().radius(function(d) {
@@ -59,7 +66,21 @@ console.log(nodes);
                 .on("drag", drag)
                 .on("end", dragend));
 
-        node.exit().remove()
+        var toolTip = d3.select("body")
+            .append("div")
+            .attr("class", "toolTip");
+        
+        node.on("mouseover", function(d) {
+            toolTip.style("display", "block")
+                .html(`<p>${d.radius}</p>`)
+                .style("left", d3.event.pageX + "px")
+                .style("top", d3.event.pageY + "px");
+        })
+            .on("mouseout", function() {
+                toolTip.style("display", "none");
+            });
+
+        node.exit().remove();
     }
 
     function dragstart(d) {
@@ -79,25 +100,19 @@ console.log(nodes);
         d.fy = null;
     };
 
-    
-
-    function color(radius) {
+    function color(Kelvin) {
         
-        if (radius > 50) {
-            return "darkred";
-        }
-        if (radius > 40) {
+        if (Kelvin > 10000) {
             return "blue";
         }
-        if (radius > 30) {
+        if (Kelvin > 6000) {
+            return "white";
+        }
+        if (Kelvin > 3700) {
             return "yellow";
-        }
-        if (radius > 20) {
-            return "orange";
-        }
-        if (radius > 10) {
-            return "coral";
         }
         return "red";
 
     }
+
+}
