@@ -64,7 +64,7 @@ body {
 .selected-planets {
   fill: purple;
   /* fill: 0 0 5px #fff, 0 0 10px #fff, 0 0 20px #ff00de, 0 0 30px #ff00de, 0 0 40px #ff00de, 0 0 55px #ff00de, 0 0 75px #ff00de; */
-
+  /* background-color: white; */
   text-align: center;
 }
 /* text shadow is a neon color */

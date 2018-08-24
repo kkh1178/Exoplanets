@@ -36,8 +36,8 @@ svg.html(`<defs>
 </radialGradient>
 
 <radialGradient id="stellarM"  cx="20%" cy="50%" r="60%" fx="50%" fy="50%">
-  <stop offset="0%" stop-color="#7e8173"/>
-  <stop offset="100%" stop-color="#361d1d"/>
+  <stop offset="0%" stop-color="#85a16b"/>
+  <stop offset="100%" stop-color="#312828"/>
 </radialGradient>
 </defs>`)
 
@@ -169,7 +169,7 @@ var stellarClass = [
     { "sClassName": "F [6,000 - 7,500 K]", "planetClass": "stellarF", "color": "#F9FCA9", "y": 60 },
     { "sClassName": "G [5,000 - 6,000 K]", "planetClass": "stellarG", "color": "#EDF410", "y": 80 },
     { "sClassName": "K [3,500 - 5,000 K]", "planetClass": "stellarK", "color": "#F4AB10", "y": 100 },
-    { "sClassName": "M [0 - 3,500 K]", "planetClass": "stellarM", "color": "#F4AB10", "y": 120 }
+    { "sClassName": "M [<3,500 K]", "planetClass": "stellarM", "color": "#F4AB10", "y": 120 }
 
 ];
 
