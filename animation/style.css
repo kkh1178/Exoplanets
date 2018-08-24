@@ -30,7 +30,29 @@ body {
 }
 
 
+.exoExplain {
+    font-size: 20px;
+    font-family: 'Oswald';
+    fill: purple;
+    text-shadow: 0 0 1px #fff, 0 0 3px #fff, 0 0 20px #ff00de, 0 0 30px #ff00de, 0 0 40px #ff00de, 0 0 55px #ff00de, 0 0 75px #ff00de;
 
+}
+
+.exoTitle {
+    font-size: 20px;
+    font-family: 'Oswald';
+    fill: purple;
+    text-shadow: 0 0 1px #fff, 0 0 3px #fff, 0 0 20px #ff00de, 0 0 30px #ff00de, 0 0 40px #ff00de, 0 0 55px #ff00de, 0 0 75px #ff00de;
+
+}
+
+.exoExplain2 {
+    font-size: 20px;
+    font-family: 'Oswald';
+    fill: purple;
+    text-shadow: 0 0 1px #fff, 0 0 3px #fff, 0 0 20px #ff00de, 0 0 30px #ff00de, 0 0 40px #ff00de, 0 0 55px #ff00de, 0 0 75px #ff00de;
+
+}
 
 .sun {
     stroke : #000000;
@@ -41,6 +63,8 @@ body {
 
 .selected-planets {
   fill: purple;
+  /* fill: 0 0 5px #fff, 0 0 10px #fff, 0 0 20px #ff00de, 0 0 30px #ff00de, 0 0 40px #ff00de, 0 0 55px #ff00de, 0 0 75px #ff00de; */
+
   text-align: center;
 }
 /* text shadow is a neon color */
