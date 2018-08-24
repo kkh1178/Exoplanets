@@ -37,7 +37,7 @@ svg.html(`<defs>
 
 <radialGradient id="stellarM"  cx="20%" cy="50%" r="60%" fx="50%" fy="50%">
   <stop offset="0%" stop-color="#85a16b"/>
-  <stop offset="100%" stop-color="#312828"/>
+  <stop offset="100%" stop-color="#343e51"/>
 </radialGradient>
 </defs>`)
 
@@ -60,8 +60,9 @@ var container = svg.append("g")
 const toolTip = d3.select("#tooltip")
 
 // function to read in the data and the initialize building the planets and orbits.
-d3.csv("cleaned_planets.csv").then(function (data) {
 
+// d3.csv("cleaned_planets.csv").then(function (data) {
+d3.json("/data").then(function (data) {
     // checking to see if the data has all of the necessary data pieces
     planets = data.filter(d => d.Planet_Radius_Earth_Radii && d.Semi_Major_Axis_proportional && d.Orbital_Velocity_proportional);
 
