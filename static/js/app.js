@@ -11,14 +11,14 @@ function makeResponsive() {
     }
 
     // Define the SVG Area
-    var svgWidth = (window.innerWidth)*.7;
-    var svgHeight = (window.innerHeight);
+    var svgWidth = (window.innerWidth)*.8;
+    var svgHeight = window.innerHeight;
 
     // Define chart margins
     var margin = {
         top: 50,
         right: 50,
-        bottom: 50,
+        bottom: 150,
         left: 100
     };
 
