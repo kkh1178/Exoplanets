@@ -9,6 +9,16 @@ import os
 
 app = Flask(__name__)
 
+if os.getenv("MONGODB_URI"):
+    app.config["MONGO_URI"] = os.getenv("MONGODB_URI")
+else:
+    app.config["MONGO_URI"] = "mongodb://localhost:27017/planets_db"
+mongo = PyMongo(app)
+mongo.db.planets_db.drop()
+info = pd.read_csv("datasets/cleaned_planets.csv", index_col=False).drop("Unnamed: 0", axis=1)
+info_json = info.to_dict(orient='records')
+mongo.db.planets_db.insert_many(info_json)
+
 @app.route("/")
 def index():
     return render_template("index.html")
@@ -28,13 +38,4 @@ def data():
 
 
 if __name__ == "__main__":
-    if os.getenv("MONGODB_URI"):
-        app.config["MONGO_URI"] = os.getenv("MONGODB_URI")
-    else:
-        app.config["MONGO_URI"] = "mongodb://localhost:27017/planets_db"
-    mongo = PyMongo(app)
-    mongo.db.planets_db.drop()
-    info = pd.read_csv("datasets/cleaned_planets.csv", index_col=False).drop("Unnamed: 0", axis=1)
-    info_json = info.to_dict(orient='records')
-    mongo.db.planets_db.insert_many(info_json)
     app.run()
