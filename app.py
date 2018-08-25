@@ -10,7 +10,7 @@ app = Flask(__name__)
 app.config["MONGO_URI"] = "mongodb://localhost:27017/planets_db"
 mongo = PyMongo(app)
 mongo.db.planets_db.drop()
-info = pd.read_csv("cleaned_planets.csv", index_col=False).drop("Unnamed: 0", axis=1)
+info = pd.read_csv("datasets/cleaned_planets.csv", index_col=False).drop("Unnamed: 0", axis=1)
 info_json = info.to_dict(orient='records')
 mongo.db.planets_db.insert_many(info_json)
 
