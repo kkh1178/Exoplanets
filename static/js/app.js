@@ -103,6 +103,7 @@ function makeResponsive() {
             .attr("cy", data => yScale(data.Planet_Radius_Earth_Radii))
             .attr("r", "15")
             .attr("stroke-width", "1")
+            .attr("fill", "lightblue")
             .attr("class", "planetCircle");
 
         var toolTip3 = d3.select("#planet-distance")
@@ -110,7 +111,23 @@ function makeResponsive() {
             .style("display", "none")
             .attr("class", "toolTip3");
 
-        circlesGroup.on("mouseover", function(d) {
+        circlesGroup.on("mouseover", function() {
+            d3.select(this)
+              .transition()
+              .duration(1000)
+              .attr("r", 20)
+              .attr("fill", "red");
+        })
+            .on("mouseout", function() {
+                d3.select(this)
+                  .transition()
+                  .duration(1000)
+                  .attr("r", 15)
+                  .attr("fill", "lightblue"),
+                toolTip3.style("display", "none");
+            });
+
+        circlesGroup.on("click", function(d) {
             toolTip3.style("display", "block")
                 .html(
                     `<strong>${d.Planet_Name}</strong>
@@ -122,10 +139,10 @@ function makeResponsive() {
                 )
                 .style("left", d3.event.pageX + "px")
                 .style("top", d3.event.pageY + "px");
-        })
-            .on("mouseout", function() {
-                toolTip3.style("display", "none");
-            });
+        });
+            // .on("mouseout", function() {
+            //     toolTip3.style("display", "none");
+            // });
        
 
     }
