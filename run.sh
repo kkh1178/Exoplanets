@@ -1,0 +1,1 @@
+FLASK_APP=exoplanets/app.py flask run
