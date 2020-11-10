@@ -8,7 +8,8 @@ Jinja2==2.10
 MarkupSafe==1.0
 numpy==1.15.1
 pandas==0.23.4
-'pymongo[srv]'
+dnspython==2.0.0
+pymongo
 python-dateutil==2.7.3
 pytz==2018.5
 six==1.11.0
